@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
+.container .row{
+
+    display: grid;
+    grid-template-columns: auto 400px;
+
+}
+*{
+    transition: .8s;
+}
+body{
+    background: white;
+}
+.logo{
+    
+    margin-top: 20px;
+    width: 180px;
+    height: 50px;
+}
+
+.left-view{
+    padding: 30px;
+    transition: .8s;
+}
+.right-view{
+    padding: 30px;
+}
+.h1{
+    
+    font-size: 27px;
+    font-weight: bold;
+}
+.h3{
+
+    font-size:21px;
+    font-weight: bold;
+
+}
+.small{
+
+    color: rgb(184, 181, 181);
+    
+}
+.w3-container{
+
+    width: 70%;
+    
+}
+
+.select select{
+
+    width: 700px;
+   
+}
+
+.button a:hover{
+    text-decoration: none;
+    color: white;
+}
+.h-show{
+
+    padding: 2px 5px 4px;
+    display: flex;
+    height: 40px;
+
+}
+.h-show p{
+    padding: 10px;
+    border-left: 1px solid silver;
+}
+.h-show:hover{
+    padding: 2px;
+}
+.section{
+
+    margin-top:20px;
+    border-radius:10px;
+    border: 2px solid silver;
+    transition: .7s;
+    width: 80%;
+}
+.input:focus{
+    width: 190px;
+    transition:  .5s;
+  
+}

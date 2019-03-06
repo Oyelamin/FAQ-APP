@@ -15,7 +15,12 @@ class CreateSolutionsTable extends Migration
     {
         Schema::create('solutions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('description_id')->unsigned();
+            $table->string('solution');
             $table->timestamps();
+        });
+        Schema::table('solutions', function($table) {
+            $table->foreign('description_id')->references('id')->on('descriptions')->onDelete('cascade');
         });
     }
 

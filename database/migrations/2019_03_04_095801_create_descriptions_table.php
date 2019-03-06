@@ -14,9 +14,15 @@ class CreateDescriptionsTable extends Migration
     public function up()
     {
         Schema::create('descriptions', function (Blueprint $table) {
+            
             $table->bigIncrements('id');
+            $table->bigInteger('problem_id')->unsigned();
+            $table->string('description');
             $table->timestamps();
+            $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
+
         });
+
     }
 
     /**
