@@ -10,6 +10,7 @@
                 Answer a few questions about the issue you are having and we'll get someone to help.
             </small><br><br>
             
+            
             <div class="w3-container">
                 <h3 class="h3">
                     1. What can we help you with?
@@ -34,84 +35,61 @@
 
                 </h3>
                 <br><br>
-                <div style="width: 70%; color: silver; cursor: none;" id="showing">
-                        <div class="field">
-                            <h5  class="h5">Please Make a Selection</h5>
-                            <div  class="control">
-                                <div class="select">
-                                <select style=" color: silver; cursor: none;">
-                                    <option>...</option>
-                                    
-                                </select>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-
+        
+            
             <div class="values">
 
                     @foreach ($services as $service)
                    
                     
-            <div id="{{$service->issues}}" class="w3-container city" style="display:none">
+            <div id="{{$service->issues}}" class="w3-container" style="display:none">
                     
                     <div class="field">
                         <h5  class="h5">Please Make a Selection</h5>
                         <div class="control">
                             <div class="select">
+
                                     @foreach($service->problems as $pro)
                                    
-                                <form name="myform"  id ="myform" method="get">
-                                    @endforeach
-                                <select>
+                                <form name="myform" action="show"  id ="myform" method="get">
 
-                                    <option>*...*</option>
+                                    @endforeach
+                                    
+                                <select name="n2" onchange="this.form.submit();">
+
+                                    <option>...</option>
 
                                     @foreach($service->problems as $pro)
                                     
-                                    <option class="tablinks"  value="{{$pro->id}}">
+                                    <option value="{{$pro->id}}">
                                         
                                     <div class="tab">
 
                                         {{-- <a  href="/contactus/{{$pro->id}}/show"class="tablinks2"> --}}
 
-                                            <a href="javascript:void(0)"  class="tabmenu active">{{$pro->problem_type}}</a>
+                                            <a href="javascript:rudrSwitchTab('{{$pro->id}}', '{{$pro->problem_type}}');" id="{{$pro->id}}" class="tabmenu active">{{$pro->problem_type}}</a>
                                            
                                         {{-- </a> --}}
-
                                     </div>
                         
                                     </option>
-
                                     @endforeach
-
                                 </select>
                             </form>
                             </div>
                         </div>
-
                         
                     </div>
                     
-                
-                <label for="">Please describe in the selection below</label>
-                        <div class="select ">
-                            
-                           <select name="" id="">
-                                <option value="">*....*</option>
-                               @foreach($service->problems as $pro)
-                               
-                               @foreach($pro->descriptions as $prodes)
-                                    <option class="{{$pro->id}} boxes">{{$prodes->description}}</option>
-                               @endforeach
-                                
-                               @endforeach
-                           </select>
-                        </div><br><br>
-                        <h3 class="h3">
+                <br><br>
+                   <h3 class="h3">
 
-                                3. How would you like to contact us?
-                            </h3><br><br>
+                        3. How would you like to contact us?
+                  
+                        <div class="select2">
+                            
+                        </div>
+                    </h3><br><br>
                     <button class="button is-success is-medium hvr-bounce-to-right">
 
                         <a href="/contactus/phone">   Phone</a>
@@ -121,7 +99,7 @@
                     <button class=" button is-success is-medium hvr-bounce-to-right"><a href="/contactus/email">  Email </a></button>
 
                 </div>
-               
+                
                 
                 @endforeach
                 
@@ -166,5 +144,4 @@
 
     </div>
 
-    
 @endsection

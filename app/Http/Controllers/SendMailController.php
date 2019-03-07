@@ -41,7 +41,7 @@ class SendMailController extends Controller
             $message->to($data['to']);
             $message->subject($data['subject']);
            
-
+            if(isset($data['a_file'])){
             $message->attach($data['a_file']->getRealPath(),array(
 
                 'as' => 'a_file.'.$data['a_file']->getClientOriginalExtension(),
@@ -50,7 +50,7 @@ class SendMailController extends Controller
             )
 
             );
-            
+        }
             
         });
         return redirect('/contactus')->with('success','Thanks! Email Sent, We will get back to you');

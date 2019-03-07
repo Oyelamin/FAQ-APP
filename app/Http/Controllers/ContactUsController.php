@@ -23,9 +23,10 @@ class ContactUsController extends Controller
         $services= Service::all();
         $problems= Problem::all();
         $url= $_SERVER['REQUEST_URI'];
-        $pro_id= trim($_SERVER['REQUEST_URI'],'/contactus/show?no=');
+        $pro_id= trim($_SERVER['REQUEST_URI'],'/contactus/show?n1=');
+        // dd($pro_id);
         $data=DB::table('descriptions')->where('problem_id', $pro_id)->get();
-        return view('contact.index')->with('data',$data)->with('services',$services)->with('problems',$problems);
+        return view('contact.problem')->with('data',$data)->with('services',$services)->with('problems',$problems);
         
     }
     public function phone(){
