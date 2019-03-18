@@ -1,0 +1,26 @@
+#nav {
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#nav li {
+  border: 1px solid silver;
+  padding: 10px;
+  background: silver;
+}
+
+#nav li:hover {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 128, 0, 0.335)), to(rgba(0, 0, 255, 0.24)));
+  background: linear-gradient(rgba(0, 128, 0, 0.335), rgba(0, 0, 255, 0.24));
+}
+
+#nav li a:hover {
+  text-decoration: none;
+}
+
+#nav li a:focus {
+  border-bottom: 4px solid white;
+}
+/*# sourceMappingURL=content.css.map */

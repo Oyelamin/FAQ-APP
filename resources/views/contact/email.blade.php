@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.user_app')
 @section('content')
 @extends('layouts.validation')
     <div class="row">
@@ -35,8 +35,12 @@
     
                     </small><br>
                 <textarea style="width: 70px;" name="message" class="textarea" required></textarea><br>
-                {!! Form::file('a_file') !!} <br><br>
-                <button class="hvr-bounce-to-right button is-medium is-success">Send e-mail</button>
+                <div id="attachment" class="animated bounceInLeft" style="display:none;">
+                    {!! Form::file('a_file') !!}
+                </div>
+                <a id="attach-fetcher" href="javascript:void(0)" onclick="showAttachment()">Add Screenshots</a>
+                 <br><hr>
+                <button onclick="this.form.submit();this.disabled= true;" style="width:100%;" class="hvr-bounce-to-right button is-medium is-success">Send e-mail</button>
             </form>
         </div>
         <div class="right-view">
@@ -51,24 +55,10 @@
                         <h3>
                             Helpful Links
                         </h3><hr>
-                        <p>Enroll in an Audible Membership</p><br>
-                        <p>Reset Your Password</p><br>
-                        <p>Manage Payment Information</p><br>
-                        <p>Unknown Charges</p><br>
+                        @foreach($links as $link)
+                        <p> <a href="{{$link->address}}"> {{$link->name}} </a></p><br>
+                        @endforeach
                         
-                        <div id="more" style="display:none;">
-                            <p>Change Name, Email Address, or Password</p>
-                            <p>Update Email Preferences</p><br>
-                            <p>Original Member Benefit</p><br>
-                            <p>Cancel my Membership</p><br>
-                            <p>Visit the Gift Center</p><br>
-                            <p>Visit the Help Center</p><br>
-                            <p>Other Contact Information</p><br>
-                        </div>
-                        <p id="less" style="display: none;">
-                                <a href="javascript:void(0)" onclick="showLess()">Less <i class="fas fa-angle-up"></i></a>
-                        </p>
-                        <p id="hide"><a href="javascript:void(0)" onclick="showMore()">MORE <i class="fas fa-angle-down"></i></a></p>
                     </div>
         </div>
     </div>

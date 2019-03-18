@@ -53,7 +53,7 @@ class SendMailController extends Controller
         }
             
         });
-        return redirect('/contactus')->with('success','Thanks! Email Sent, We will get back to you');
+        return redirect('/contactus')->with('success','Thanks! Email Sent, We will get back to you soon');
     }
    
 }

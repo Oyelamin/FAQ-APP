@@ -21,7 +21,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgb(3, 3, 77);
+    background: rgba(218, 218, 219, 0.705);
     -webkit-transform: scaleX(0.2);
     transform: scaleX(0.1);
     -webkit-transform-origin: 0 50%;

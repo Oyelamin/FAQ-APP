@@ -21,6 +21,7 @@ body{
 .left-view{
     padding: 30px;
     transition: .8s;
+    margin-top:-20px;
 }
 .right-view{
     padding: 30px;
@@ -43,13 +44,13 @@ body{
 }
 .w3-container{
 
-    width: 70%;
+    width: 90%;
     
 }
 
 .select select{
 
-    width: 700px;
+    width: 600px;
    
 }
 
@@ -75,12 +76,54 @@ body{
 
     margin-top:20px;
     border-radius:10px;
-    border: 2px solid silver;
+    border: 2px solid rgba(63, 182, 52, 0.11);
     transition: .7s;
-    width: 80%;
+    width: 90%;
 }
 .input:focus{
     width: 190px;
     transition:  .5s;
   
+}
+.optional{
+    border: 2px solid silver;
+    width:90%;
+    margin-top:20px;
+    transition: 8.8s;
+}
+.optional .content{
+    padding: 20px;
+    transition:.8s;
+}
+.sec{
+    margin-top:-10px;
+    transition:.8s;
+    font-size:13px;
+}
+.top-section{
+    border:2px solid rgba(40, 121, 226, 0.082);
+    padding:20px;
+    width: 90%;
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+}
+.top-section h4{
+    font-weight:bold;
+}
+
+.input:focus{
+    box-shadow:1px 1px 1px 1px green;
+}
+
+.textarea:focus{
+    box-shadow:1.2px 1px 1px 1px green;
+}
+
+.solutions{
+
+    background:linear-gradient(rgba(0, 128, 0, 0.335), rgba(0, 0, 255, 0.24));
+    padding:10px;
+    color: black;
+    width:100%;
+
 }
