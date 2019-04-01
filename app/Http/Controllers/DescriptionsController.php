@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Description;
 use App\Problem;
+use App\Http\Requests\DescriptionRequests;
 class DescriptionsController extends Controller
 {
     public function __construct(){
@@ -21,27 +22,22 @@ class DescriptionsController extends Controller
         $problems= Problem::all();
         return view('Administrator.Descriptions.create')->with('problems',$problems);
     }
-    public function store(){
-        request()->validate([
-            'problem'=>'required',
-            'description'=>['required','min:3']
-        ]);
+    public function store(DescriptionRequests $request){
+    
         $problem= request('problem'); //Services
         $description= request('description'); //Problems
         $pro_id= Problem::select('id')->where('problem_type',$problem)->get();
         $problem_id= $pro_id->toArray();
         foreach($problem_id as $id){
-        
             Description::create([
                 'problem_id' => $id['id'],
                 'description' => $description
             ]);
         }
         return back()->with('success','Stored Successfully!');
-        
-
     }
     public function destroy(Description $description){
+       
         $description->delete();
         return back()->with('success','Deleted Successfully');
     }

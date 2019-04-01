@@ -7,16 +7,11 @@
     <select id="navs" onchange="this.value;">
         <option value="*..*">*..*</option>
         @foreach ($problems as $problem)
-        @foreach($services as $serv)
-            <?php 
-            
-                $s= explode(' ',$serv); 
-                $service= $s[0].$s[1];
-            ?>
-            <option value="content/service2?n2={{$problem['id']}}">
-               {{$problem['problem_type']}}
-            </option>
-        @endforeach
+            @foreach($services as $serv)
+                <option value="content/service2?n2={{$problem['id']}}">
+                {{$problem['problem_type']}}
+                </option>
+            @endforeach
         @endforeach
     </select>
 

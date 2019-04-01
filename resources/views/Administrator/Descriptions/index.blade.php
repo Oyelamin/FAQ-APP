@@ -1,7 +1,4 @@
-{{-- <script src="{{ asset('js/app.js') }}" defer></script>
-<link rel="stylesheet" href="{{asset('css/animate.css')}}">
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="{{asset('css/bulma.css')}}"> --}}
+
 @extends('layouts.auth')
 @section('content')
 <table class="table animated FadeInDown ">
@@ -15,7 +12,7 @@
             </tr>
         </thead>
         {{-- <tbody> --}}
-           
+           @if(count($descriptions) > 0)
                 @foreach ($descriptions as $description)
                 <tr>
                     <td>{{$description->description}}</td>
@@ -31,6 +28,13 @@
                     </td>
                 </tr>
                 @endforeach
+            @else
+                <tr>
+                    <td>
+                        <h1 class="h3" style="padding:30px;">No Description Defined Yet!</h1>
+                    </td>
+                </tr>
+            @endif
                 <div style="margin-top:-10px;margin-bottom:0px;">
                     {{$descriptions->links('pagination.index')}}
                     <br>

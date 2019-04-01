@@ -38,7 +38,12 @@
         },
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "app/ExtraConfigurations/route.php"
+        ],
+        "files": [
+            "app/ExtraConfigurations/route.php"
+           
         ]
     },
     "autoload-dev": {

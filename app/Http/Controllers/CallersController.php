@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Caller;
-
+use App\Phone;
 class CallersController extends Controller
 {
     /**
@@ -18,21 +17,17 @@ class CallersController extends Controller
      * View All Callers
      */
     public function index(){
-
-        $callers= Caller::orderBy('id','desc')->paginate(7);
+        $callers = Phone::orderBy('id','desc')->paginate(7);
         return view('Administrator.Caller.index')->with('callers',$callers);
-
     }
- 
     /**
      * Modify all callers
      * Like to delete if they have been answered
      */
-    public function destroy(Caller $caller){
-
-        $caller->delete();
+    public function destroy(Phone $phone){
+        $phone->delete();
         return back()->with('success','DELETED!');
-
     }
-
-}
+}//00923244626638
+//Just send me Hi on whatsapp i will respond when am online
+//LOl--Okay--Bye

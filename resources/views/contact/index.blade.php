@@ -1,12 +1,19 @@
 @extends('layouts.user_app')
 @section('content')
-    
+<?php
+                                
+    $home_page= $homePage["name"];
+    $phone_page= $phone["name"];
+    $email_page= $emailPage["name"];
+    $app_name= $appName['name'];
 
-        <div class="row">
+?>
+
+        <div class="row animated fadeInDown">
             <div class="left-view">
                 <img class="logo" src="{{asset('img/inits-logo.png')}}">ng<br><br><br>
 
-                <h4 class="h1">Contact Customer Service</h4>
+                <h4 class="h1">{{$app_name}}</h4>
 
                 <small class="small">
 
@@ -16,6 +23,7 @@
                 
                 <div class="w3-container">
                     {{-- First Helper --}}
+                    @if(count($services) > 0)
                     <h3 class="h3">
 
                         1. What can we help you with?
@@ -38,10 +46,6 @@
                         <br><br>
                         
                     </ul>
-                    {{-- <div class="box" style="width:50%;">
-                        {{$services->links()}}
-                    </div> --}}
-                    
 
                     <div class="animated slideInDown" id="first_content">
 
@@ -54,26 +58,52 @@
                             </select>
                         </div><br><br>
                     </div>
+                   
                     <div class="third_content" style="opacity:0.3;cursor:not-allowed;" id="third_content">
                         <h3 class="h3">
 
                             3. How would you like to contact us?
     
                         </h3><br><br>
+                       
+                        
+                        <button style="background:linear-gradient(rgba(0, 128, 0, 0.335), rgba(0, 0, 255, 0.24));" onclick="this.form.submit();this.disabled = true;" class="button is-medium hvr-bounce-to-right">
+                            
+                            <a href ="/{{$home_page}}/{{$phone_page}}">   Phone</a>
     
+                        </button>
+    
+                        <button style="background:linear-gradient(rgba(0, 128, 0, 0.335), rgba(0, 0, 255, 0.24));" onclick="this.form.submit();this.disabled = true;" class=" button is-medium hvr-bounce-to-right">
+                            
+                            <a href="/{{$home_page}}/{{$email_page}}">  Email </a>
+                        
+                        </button>
+              
+                    </div>
+                    @else
+                    <h1>No Services Available yet!</h1><br>
+                    <div class="third_content" id="third_content">
+                        <h3 class="h3">
+
+                            3. How would you like to contact us?
+    
+                        </h3><br><br>
+                       
+                        
                         <button onclick="this.form.submit();this.disabled = true;" class="button is-medium hvr-bounce-to-right">
-    
-                            <a href="/contactus/phone">   Phone</a>
+                            
+                            <a href ="/{{$home_page}}/{{$phone_page}}">   Phone</a>
     
                         </button>
     
                         <button onclick="this.form.submit();this.disabled = true;" class=" button is-medium hvr-bounce-to-right">
                             
-                            <a href="/contactus/email">  Email </a>
+                            <a href="/{{$home_page}}/{{$email_page}}">  Email </a>
                         
                         </button>
               
                     </div>
+                    @endif
 
                 </div>
                 
@@ -85,7 +115,7 @@
 
                     <p style="border-left: none;">
                         
-                        <a href="">Help</a>
+                        <a href="/{{$home_page}}/{{$email_page}}">Help</a>
                     
                     </p>
 
@@ -108,10 +138,13 @@
                         Helpful Links
 
                     </h3><hr>
+                    @if(count($links) > 0)
                     @foreach ($links as $link)
                         <p><a href="{{$link->address}}">{{$link->name}}</a></p><br>
                     @endforeach
-                    
+                    @else
+                        <h4>No Link is Available</h4>
+                    @endif
                     
                 
 
@@ -125,25 +158,7 @@
 
 <script src="{{asset('js/jquery.js')}}"></script>
 <script>
-    $(document).ready(function(){
-        $('ul#nav li a').click(function(){
-            $('#fade_content').hide();
-       
-            var page= $(this).attr('href');
-            // $(this).setAttr('active');
-            // alert(page);
-            $('#first_content').load(page).fadeIn();
-            
-            return false;
-        });
-        
-    });
 
-    function clearOut(){
-        document.getElementById('third_content').style.opacity= '4';
-        document.getElementById('third_content').style.cursor= 'pointer';
-        
-    }
 </script>
     
 

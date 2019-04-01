@@ -12,7 +12,7 @@
             </tr>
         </thead>
         {{-- <tbody> --}}
-           
+            @if(count($services) > 0)
                 @foreach ($services as $service)
                 <tr>
                     <td>{{$service->issues}}</td>
@@ -28,6 +28,13 @@
                     </td>
                 </tr>
                 @endforeach
+            @else
+            <tr>
+                <td>
+                    <h1 class="h3" style="padding:30px;">No Services Defined Yet!</h1>
+                </td>
+            </tr>
+            @endif
                 <div class="" style="margin-top:-20px;margin-bottom:10px;">
                         {{$services->links('pagination.index')}}
                         <br>

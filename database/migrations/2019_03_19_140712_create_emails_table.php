@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCallersTable extends Migration
+class CreateEmailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateCallersTable extends Migration
      */
     public function up()
     {
-        Schema::create('callers', function (Blueprint $table) {
+        Schema::create('emails', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('country');
-            $table->string('phone');
+            $table->string('address');
+            $table->string('subject');
+            $table->text('description');
+            $table->string('attachment');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateCallersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('callers');
+        Schema::dropIfExists('emails');
     }
 }

@@ -46,4 +46,4 @@ $("#show-sidebar").click(function() {
 // });
 setTimeout(function() {
   $('#verify').hide('slow')
-}, 5000);
+}, 9000);

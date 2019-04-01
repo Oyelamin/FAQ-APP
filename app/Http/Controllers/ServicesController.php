@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Service;
+use App\Http\Requests\ServiceRequests;
 class ServicesController extends Controller
 {
     public function __construct(){
@@ -20,18 +21,11 @@ class ServicesController extends Controller
         return view('Administrator.Services.create');
     }
 
-    public function store(){
-
-        request()->validate([
-            'service'=>['required','min:5']
-        ]);
-
+    public function store(ServiceRequests $request){
         Service::create([
             'issues'=>request('service')
         ]);
-
         return back()->with('success','Stored Successfully');
-
     }
 
     public function destroy(Service $service){

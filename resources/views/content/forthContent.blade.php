@@ -2,12 +2,15 @@
     <p><b>Do you know?</b></p><br>
     <small>
 
-        @if(!empty($solutions))
+        @if(count($solutions) > 0)
 
             @foreach($solutions as $solution)
 
-            {{-- {{$solution['solution']}} --}}
-            <?php echo $solution['solution'];?>
+                <?php 
+    
+                    echo $solution['solution'];
+                    
+                ?>
             
             @endforeach
         @else

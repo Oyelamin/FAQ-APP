@@ -1,3 +1,11 @@
+<?php
+
+$count_caller= Change::callers_count_number();
+$count_email= Change::email_count_number();
+$index= Change::index();
+$app_name= Change::title();
+?>
+
 <link href="{{asset('css/bootstrap.min.css" rel="stylesheet')}}" id="bootstrap-css">
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -5,7 +13,6 @@
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{asset('js/home.js')}}"></script>
 
-{{-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> --}}
 <!------ Include the above in your HEAD tag ---------->
 
 <!DOCTYPE html>
@@ -16,7 +23,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-    <title>Contact Customer Service</title>
+    @if(strlen($app_name["name"]) < 1)
+    <title> Add App Name</title>
+    @else
+    <title>{{$app_name["name"]}}</title>
+    @endif
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -26,25 +37,30 @@
     <link rel="icon" href="{{asset('img/favicon.png')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/bulma.css')}}">
-
-
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
  
-
+  <style>
+    a:hover{
+      text-decoration: none;
+    }
+  </style>
 </head>
-
 <body class="animated fadeInDown">
     
     
 <div class="page-wrapper chiller-theme toggled">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+  {{-- Nav Menu Bar --}}
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)">
       <i class="fa fa-bars"></i>
     </a>
+    {{-- Side Bar Nav --}}
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
-          <a href="#" style="font-size:20px;color: white"><img style="width:190px;" class="logo" src="{{asset('img/inits-logo.png')}}"></a>
+          <a href="javascript:void(0)" style="font-size:20px;color: white">
+            <img style="width:190px;" class="logo" src="{{asset('img/inits-logo.png')}}">
+          </a>
           <div id="close-sidebar">
             <i class="fa fa-times"></i>
           </div>
@@ -55,8 +71,7 @@
           </div>
           <div class="user-info">
             <span class="user-name">
-              <strong>{{ Auth::user()->name }}</strong>
-              {{-- {{ Auth::user()->name }} --}}
+              <strong>{{ Auth::user()["name"] }}</strong>
             </span>
             <span class="user-role">Administrator</span>
             <span class="user-status">
@@ -65,7 +80,6 @@
             </span>
           </div>
         </div>
-       
         <div id="sideBarMenu" class="sidebar-menu">
           <ul>
             <li class="header-menu">
@@ -75,16 +89,20 @@
                 <a href="javascript:void(0)">
                   <i class="fa fa-phone"></i>
                   <span>Callers</span>
-                  <span class="badge badge-pill badge-danger">3 </span>
+                  <span class="badge badge-pill badge-danger">{{$count_caller}} </span>
                 </a>
                 <div class="sidebar-submenu">
                   <ul>
                     <li>
-                      <a href="/contactus/callers">View Callers
-    
+                      <a href="/contactus/todayCallers">
+                        Today Callers
                       </a>
                     </li>
-                    
+                    <li>
+                      <a href="/contactus/callers">
+                        View Callers
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </li>
@@ -104,7 +122,6 @@
                   <li>
                     <a href="/contactus/services">View Services </a>
                   </li>
-                  
                 </ul>
               </div>
             </li>
@@ -112,13 +129,13 @@
               <a href="javascript:void(0)">
                 <i class="fa fa-eraser"></i>
                 <span>Problem</span>
-                <span class="badge badge-pill badge-danger">3</span>
+                <span class="badge badge-pill badge-danger"></span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
                   <li>
-                    <a href="/contactus/problems/create">Add Problem
-  
+                    <a href="/contactus/problems/create">
+                      Add Problem
                     </a>
                   </li>
                   <li>
@@ -132,13 +149,13 @@
                 <a href="javascript:void(0)">
                   <i class="fa fa-list"></i>
                   <span>Description</span>
-                  <span class="badge badge-pill badge-danger">3</span>
+                  <span class="badge badge-pill badge-danger"></span>
                 </a>
                 <div class="sidebar-submenu">
                   <ul>
                     <li>
-                      <a href="/contactus/descriptions/create">Add Description
-    
+                      <a href="/contactus/descriptions/create">
+                        Add Description
                       </a>
                     </li>
                     <li>
@@ -148,6 +165,7 @@
                   </ul>
                 </div>
               </li>
+
             <li class="sidebar-dropdown">
               <a href="javascript:void(0)">
                 <i class="fa fa-globe"></i>
@@ -156,7 +174,9 @@
               <div class="sidebar-submenu">
                 <ul>
                   <li>
-                    <a href="/contactus/solutions/create">Add Solution</a>
+                    <a href="/contactus/solutions/create">
+                      Add Solution
+                    </a>
                   </li>
                   <li>
                     <a href="/contactus/solutions">View Solutions</a>
@@ -167,12 +187,12 @@
             <li class="header-menu">
               <span>Extra</span>
             </li>
-  
             <li>
               <div id="singleLink">
-                <a href="/contactus/emailMessages">
+                <a href="/contactus/EmailMessgs">
                   <i class="fa fa-mail-forward"></i>
                   <span>Emails</span>
+                  <span class="badge badge-pill badge-danger">{{$count_email}} </span> 
                 </a>
               </div>
             </li>
@@ -198,64 +218,110 @@
                   </div>
                 </li>
                 <li id="link" class="sidebar-dropdown">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-link"></i>
-                        <span>Countries</span>
-                      {{-- <span class="badge badge-pill badge-danger">3</span> --}}
-                    </a>
-                    <div class="sidebar-submenu">
-                      <ul>
-                        <li>
-                          <a href="/contactus/countries/create">Add Country
-        
-                          </a>
-                        </li>
-                        <li>
-                          <a href="/contactus/countries">View Countries</a>
-                        </li>
-                        
-                      </ul>
-                    </div>
-                  </li>
+                  <a href="javascript:void(0)">
+                      <i class="fa fa-link"></i>
+                      <span>Countries</span>
+                    {{-- <span class="badge badge-pill badge-danger">3</span> --}}
+                  </a>
+                  <div class="sidebar-submenu">
+                    <ul>
+                      <li>
+                        <a href="/contactus/countries/create">Add Country
+      
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/contactus/countries">View Countries</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
+                <li id="link" class="sidebar-dropdown">
+                  <a href="javascript:void(0)">
+                      <i class="fa fa-link"></i>
+                      <span>Customer Prefer</span>
+                    {{-- <span class="badge badge-pill badge-danger">3</span> --}}
+                  </a>
+                  <div class="sidebar-submenu">
+                    <ul>
+                      <li>
+                        <a href="/contactus/CustomerPrefer/AddTollFreeNumber">Add Toll free Number
+      
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/contactus/CustomerPrefer/InternationalNumber">Add International Number</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
           </ul>
         </div>
         <!-- sidebar-menu  -->
       </div>
-      <!-- sidebar-content  -->
-      <div class="sidebar-footer">
-        {{-- <a href="#">
-          <i class="fa fa-bell"></i>
-          <span class="badge badge-pill badge-warning notification">3</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-envelope"></i>
-          <span class="badge badge-pill badge-success notification">7</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-cog"></i>
-          <span class="badge-sonar"></span>
-        </a>
-        <a href="#">
-          <i class="fa fa-power-off"></i>
-        </a> --}}
+
+      {{-- Sidebar Footer --}}
+      <div id="sidebar-footer" class="sidebar-footer" style="display:inline;">
+        <li style="list-style:none;color:white;padding:3px;text-align:center;" id="link" class="sidebar-dropdown">
+            <a style="color:white;" href="javascript:void(0)">
+              <i class="fas fa-cog"></i>
+            </a>
+            <div style="display:none;" class="sidebar-submenu animated bounce">
+              <br>
+              <ul>
+                  <li>
+                      <small>
+                        <a style="color:silver;" href="/contactus/settings/ChangeAppName">
+                          Change App Name
+                        </a>
+                      </small>
+                    </li>
+                <li>
+                  <small>
+                    <a style="color:silver;" href="/contactus/settings/ChangeHomeAddress">
+                      Change Home App Address
+                    </a>  
+                  </small>
+                </li>
+                <li>
+                    <small>
+                      <a style="color:silver;" href="/contactus/settings/ChangeEmailAddress">
+                        Change Email App Address
+                      </a>
+                    </small>
+                </li>
+                <li>
+                  <small>
+                    <a style="color:silver;" href="/contactus/settings/ChangePhoneAddress">
+                      Change Contact App Address
+                    </a>
+                  </small>
+                </li>
+              </ul>
+            </div>
+          </li>
       </div>
     </nav>
     <div>
         
-        
+  <!-- sidebar-content  -->
   <!-- sidebar-wrapper  -->
   <main class="page-content">
     <div class="container-fluid">
-    
-          <nav style="background:silver;margin-left:-50px;position:fixed;width:75%;" class="navbar nav-fixed-top navbar-expand-md navbar-light navbar-laravel">
+          <nav style="background:silver;margin-left:-50px;position:fixed;width:75%;margin-top:-10px;" class="navbar nav-fixed-top navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/contactus') }}">
-                   Contact Customer Service
+              @if(strlen($app_name["name"]) < 1)
+              <a class="navbar-brand" href="http://127.0.0.1:8000/contactus/settings/ChangeAppName"> <i class="fa fa-plus"></i> Add App Name</a>
+              @else
+                <a class="navbar-brand" href="/{{$index}}">
+                   {{$app_name["name"]}}
                 </a>
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -296,32 +362,18 @@
                     </ul>
                 </div>
             </div>
-            
         </nav>
-
-        
       <br><br><br><br><br>
       <div class="row" >
         <div class="form-group col-md-12">
-            
-          {{-- <h1>Store it for easy solutions</h1> --}}
           <div id="showContents">
-              
             @yield('content')
           </div>
-         
         </div>
-   
       </div>
-      {{-- <h5>More templates</h5> --}}
       <div id="showView">
-        {{-- <br><br>
-        <h1 class="h1" style="text-align:center;">Store it for easy solution</h1>
-        <p style="text-align:center;">The easy way to make your clients much more better</p> --}}
       </div>
-     
     </div>
-
   </main>
   <!-- page-content" -->
 </div>
@@ -331,17 +383,7 @@
         crossorigin="anonymous"></script>
     <script src="{{asset('js/bootstrap.min.js')}}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-    
-
-</script>
-    </div>   
-          
-
-</div>
-    
 
 </body>
 </html>

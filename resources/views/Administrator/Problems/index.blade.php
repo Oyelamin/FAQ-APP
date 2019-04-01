@@ -14,8 +14,8 @@
                
             </tr>
         </thead>
-        {{-- <tbody> --}}
-           
+        
+           @if(count($problems) > 0)
                 @foreach ($problems as $problem)
                 <tr>
                     <td>{{$problem->problem_type}}</td>
@@ -31,11 +31,18 @@
                     </td>
                 </tr>
                 @endforeach
-                <div class="" style="margin-top:-20px;margin-bottom:10px;">
-                        {{$problems->links('pagination.index')}}
-                        <br>
-                    </div>
-            
+            @else
+                <tr>
+                    <td>
+                        <h1 class="h3" style="padding:30px;">No Problems Defined Yet!</h1>
+                    </td>
+                </tr>
+            @endif
+            <div class="" style="margin-top:-20px;margin-bottom:10px;">
+                {{$problems->links('pagination.index')}}
+                <br>
+            </div>
+        
         {{-- </tbody> --}}
 </table>
 @endsection

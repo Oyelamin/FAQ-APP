@@ -7,7 +7,7 @@
     
 
 @if(count($callers) > 0)
-<table class="table animated FadeInDown ">
+    <table class="table animated FadeInDown ">
         @extends('layouts.validation')
         <thead class="thead-light">
             <tr>
@@ -19,31 +19,40 @@
             </tr>
         </thead>
 
-            
-                @foreach ($callers as $caller)
-                <tr>
-                    <td>{{$caller->country}}</td>
-                    <td>{{$caller->phone}}</td>
-                    <td>{{$caller->created_at}}</td>
-                    <td> 
-                        <form action="/contactus/callers/{{$caller->id}}" method="post">
-                        
-                            @csrf
-                            @method("DELETE")
-                            <button onclick="this.form.submit();this.disabled = true;" class="button is-danger is-small">DELETE</button>
+        @if(count($callers) > 0)
+        @foreach ($callers as $caller)
+            <tr>
+                <td>{{$caller['country']}}</td>
+                <td>{{$caller['phone']}}</td>
+                <td>{{$caller['created_at']}}</td>
+                <td> 
+                    <form action="/contactus/callers/{{$caller['id']}}" method="post">
+                    
+                        @csrf
+                        @method("DELETE")
+                        <button onclick="this.form.submit();this.disabled = true;" class="button is-danger is-small">
+                            DELETE
+                        </button>
 
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-                <br><br>
-                <div class="" style="margin-top:-70px;margin-bottom:10px;">
-                    {{$callers->links('pagination.index')}}
-                    <br>
-                </div>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        @else
+        <tr>
+            <td>
+                <h1 class="h3" style="padding:30px;">No Callers Defined Yet!</h1>
+            </td>
+        </tr>
+        @endif
+        <br><br>
+        <div class="" style="margin-top:-70px;margin-bottom:10px;">
+            {{$callers->links('pagination.index')}}
+            <br>
+        </div>
              
 
-</table>
+    </table>
 @else
 <div class="notification">
     <h1 class="h1" style="margin:auto;text-align:center;">No Callers Yet!</h1>

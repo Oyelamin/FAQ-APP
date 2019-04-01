@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-<table class="table animated FadeInDown ">
+<table class="table animated fadeInDown ">
         @extends('layouts.validation')
         <thead class="thead-light">
             <tr>
@@ -10,8 +10,7 @@
                
             </tr>
         </thead>
-        {{-- <tbody> --}}
-           
+           @if(count($links) > 0)
                 @foreach ($links as $link)
                 <tr>
                     <td>{{$link->name}}</td>
@@ -27,6 +26,13 @@
                     </td>
                 </tr>
                 @endforeach
+            @else
+            <tr>
+                <td>
+                    <h1 class="h3" style="padding:30px;">No Links Defined Yet!</h1>
+                </td>
+            </tr>
+            @endif
                 <div class="" style="margin-top:-10px;">
                         {{$links->links('pagination.index')}}
                         <br>

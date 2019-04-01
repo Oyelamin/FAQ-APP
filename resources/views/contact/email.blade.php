@@ -13,13 +13,13 @@
             <form action="/contactus/email/send" method="post" enctype="multipart/form-data">
                 @csrf
                 <label for="email" class="label">Email: </label>
-                <input name="fro" style="width: 80%;" type="text" class="input" required>
+                <input name="mailAddress" style="width: 80%;" type="text" class="input" required>
                 <br><br>
                 <p style="width: 80%;">
                     <b>
                         Note: If you are contacting us about your ACX account and it is not the
                          same as your Audible.com account, please sign out, then enter your ACX account 
-                         email in the above box. 
+                         email in the above box.
                     </b>
                 </p><br><br>
                 <label for="email" class="label">Subject: </label>
@@ -36,7 +36,26 @@
                     </small><br>
                 <textarea style="width: 70px;" name="message" class="textarea" required></textarea><br>
                 <div id="attachment" class="animated bounceInLeft" style="display:none;">
-                    {!! Form::file('a_file') !!}
+                        {{-- {!! Form::file('a_file') !!} --}}
+                    <div class="input-group control-group increment">
+                        <div class="form-control">
+                             {!! Form::file('a_file[]') !!}
+                        </div>
+                           
+                        <div class="input-group-btn">
+                            <button class="btn btn-success"  style="font-weight:bold;" type="button"><i class="fa fa-plus"></i>Add</button>
+                        </div>
+                    </div>
+                    <div class="clone hide" style="display:none;">
+                        <div class="control-group input-group" style="margin-top:10px">
+                            <div class="form-control">
+                                {!! Form::file('a_file[]') !!}
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-danger"  style="font-weight:bold;" type="button"><i class="fa fa-minus"></i>Remove</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <a id="attach-fetcher" href="javascript:void(0)" onclick="showAttachment()">Add Screenshots</a>
                  <br><hr>
@@ -55,12 +74,33 @@
                         <h3>
                             Helpful Links
                         </h3><hr>
-                        @foreach($links as $link)
-                        <p> <a href="{{$link->address}}"> {{$link->name}} </a></p><br>
+                        @if(count($links) > 0)
+                        @foreach ($links as $link)
+                            <p><a href="{{$link->address}}">{{$link->name}}</a></p><br>
                         @endforeach
+                        @else
+                            <h4>No Link is Available</h4>
+                        @endif
                         
                     </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+    
+          $(".btn-success").click(function(){ 
+              var html = $(".clone").html();
+              $(".increment").after(html);
+          });
+    
+          $("body").on("click",".btn-danger",function(){ 
+              $(this).parents(".control-group").remove();
+          });
+    
+        });
+    
+    </script>
 
 @endsection

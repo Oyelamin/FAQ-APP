@@ -1,4 +1,7 @@
-
+<?php
+$index= Change::index();  //Address to the first view page
+$phone= Change::phone();  //Address to the phone call Page
+?>
 @extends('layouts.user_app')
 @section('content')
 @extends('layouts.validation')
@@ -13,40 +16,47 @@
                 Enter your number and we'll call you.
 
             </small><br><br>
-            <form action="/contactus/phone" method="post">
+            <form action="/{{$index}}/{{$phone}}" method="post">
                 @csrf
                 <label class="label" for="">Country</label>
                 <div style="width: 70%;" class="select">
-                    
+                    @if(count($countries) > 0)
                     <select required name="country" id="">
                         @foreach($countries as $country)
                             <option onsubmit="this.form.submit" onchange="showOthers" value="{{$country->name}}">{{$country->name}}</option>
                         @endforeach
-                        <option value="">Other</option>
+                        <option onsubmit="this.form.submit" value="Other">Other</option>
                     </select>
+                    @else
+                        <select name="" id="">
+                            <option value="">No country is available yet!</option>
+                        </select>
+                    @endif
                 </div><br><br>
                 <small style="display:none;" id="top-data" class="top-data animated bounceInRight">
-                    Enter your extension here. You can type a comma (,) to add a pause.
+                    Enter your extension here. You can type a comma (,) to add a pause and designate with your country code.
                 </small>
                 <label class="label" for="">
                     Your Number
                 </label>
-                (<input required name="f-number" class="input number_input" style="width:3.2em; margin: 0px 4px;" type="text" maxlength="3">)
-                <input required name="s-number" class="input number_input" style="width:3.2em; margin:0px 4px;" type="text" maxlength="3"> -
-                <input required name="t-number" class="input number_input" style="width:4em; margin:0px 4px;" type="text" maxlength="4">
+                (<input required name="first_digit" class="input number_input" style="width:3.2em; margin: 0px 4px;" type="text" maxlength="3">)
+                <input required name="second_digit" class="input number_input" style="width:3.2em; margin:0px 4px;" type="text" maxlength="3"> -
+                <input required name="third_digit" class="input number_input" style="width:4em; margin:0px 4px;" type="text" maxlength="4">
                 <span style="position: absolute;margin-top:-30px;font-weight: bold;margin-left:5px;">Ext.</span>
                 <input name="extra" value="" id="ext" onfocus="showTopData()" class="input ext" onkeyup="showColorBox()" style="width:4em; margin:0px 4px;" type="tel">
                 <div class="animated fadeInDown ext-info" id="ext-info" style="display:none;">
-                    <h6><b>  Will a receptionist answer this call?</b></h6>
-                    <input type="radio" name="" id="" class="radio"> No <input type="radio" class="radio"> Yes
+                    {{-- <h6><b>  Will a receptionist answer this call?</b></h6> --}}
+                    <h6><b> I believe a receptionist will answer this call!!</b></h6>
+                    {{-- <input type="radio" name="" id="" class="radio"> No <input type="radio" class="radio"> Yes --}}
                 </div>
                 <br><br>
-                <button onclick="this.form.submit();this.disabled = true;" style="margin:0px 4px;" class="button is-success">Call me now</button>
+                
+                <button onclick="this.form.submit();this.disabled = true;" style="margin:0px 4px;" class="button is-success">Call us now</button>
                 {{-- <button onclick="this.form.submit();this.disabled = true;" style="margin:0px 4px;" class="button is-link is-outlined">Call me in 5 Minutes</button> --}}
             </form>
             <br><br>
             <span>
-                <a href="/contactus" style="color: green;font-size:15px;">
+                <a href="/{{$homePage['name']}}" style="color: green;font-size:15px;">
                     <i class="fa fa-arrow-left"></i>
                 </a>
             </span>
@@ -62,7 +72,7 @@
                     <label for="" class="label" style="cursor:pointer;margin-left:5px;">
                     
                         <i class="fas fa-angle-down"></i> If you prefer, you can also call our general help number
-                    
+            
                     </label>
                 </a>
                 
@@ -77,19 +87,19 @@
                      <label class="label" for="" style="font-size:13px;">Toll free</label>
                     <div class="sec">
                         
-                        <p style="margin-bottom:5px;">1 (888) 283-5051</p>
+                        <p style="margin-bottom:5px;">{{$customer_p_number['number']}}</p>
 
                     </div>
                     <label class="label" for="" style="font-size:13px;">International</label>
                     <div class="sec">
                         
-                        <p style="margin-bottom:5px;" >1 (206) 577-1377 -- charges may apply.</p>
+                        <p style="margin-bottom:5px;" >{{$customer_p_i_number['number']}} -- charges may apply.</p>
 
                     </div>
                     <p style="font-size:13px;"> <b> Ayuda en Español</b> (Disponible 9AM - 9PM) </p>
                     <div class="sec">
-                        <i>  <p style="margin-bottom:5px;margin-top:-18px;">Llama gratis : (888) 283-0332 </p>
-                            <p style="margin-top:-5px;">Internacional : (206) 922-0156</p>
+                        <i>  <p style="margin-bottom:5px;margin-top:-18px;">Llama gratis : {{$customer_p_number['number']}} </p>
+                            <p style="margin-top:-5px;">Internacional : {{$customer_p_i_number['number']}} </p>
                      
                         </i>
                     </div>
@@ -137,9 +147,13 @@
 
                 </h3><hr>
 
+                @if(count($links) > 0)
                 @foreach ($links as $link)
                     <p><a href="{{$link->address}}">{{$link->name}}</a></p><br>
                 @endforeach
+                @else
+                    <h4>No Link is Available</h4>
+                @endif
             </div>
 
         </div>

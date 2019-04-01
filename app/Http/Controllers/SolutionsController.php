@@ -6,12 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Solution;
 use App\Description;
+use App\Http\Requests\SolutionRequest;
 class SolutionsController extends Controller
 {
     public function __construct(){
-
         $this->middleware('auth');
-
     }
     // Show all Solutions in descrnding order of 7 values
     public function index(){
@@ -24,26 +23,18 @@ class SolutionsController extends Controller
         return view('Administrator.Solutions.create')->with('descriptions',$descriptions);
     }
     // Store the solution
-    public function store(){
-        request()->validate([
-            'description'=>'required',
-            'solution'=>['required','min:5']
-        ]);
-
+    public function store(SolutionRequest $request){
         $description= request('description'); //Services
         $solution= request('solution'); //Problems
-        
-        $desc_id= Description::select('id')->where('description',$description)->get();
+        $desc_id= Description::select('id')->where('description',$description)->get();      //Get the description id to know the solution to the problem
         $description_id= $desc_id->toArray();
         foreach($description_id as $id){
-        
             Solution::create([
                 'description_id' => $id['id'],
                 'solution' => $solution
             ]);
             return back()->with('success','Stored Successfully');
         }
-
     }
     // Delete the solution from the id
     public function destroy(Solution $solution){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Link;
+use App\Http\Requests\LinkRequests;
 class LinksController extends Controller
 {
     public function __construct(){
@@ -17,11 +18,7 @@ class LinksController extends Controller
     public function create(){
         return view('Administrator.Links.create');
     }
-    public function store(){
-        request()->validate([
-            'name'=>['required','min:3'],
-            'address'=>['required','min:5']
-        ]);
+    public function store(LinkRequests $request){
         Link::create([
             'name'=> request('name'),
             'address'=>request('address')
@@ -30,21 +27,9 @@ class LinksController extends Controller
         return back()->with('success','Link Stored Successfully');
 
     }
-
     public function destroy(Link $link){
         $link->delete();
         return back()->with('success','Deleted Successfully');
     }
 
-    // public function conn(){
-    //     try{
-
-    //         return new PDO('mysql:host=127.0.0.1;dbname=games','root','');
-
-    //     }catch(PDOException $e){
-
-    //         die($e->getMessage());
-
-    //     }
-    // }
 }

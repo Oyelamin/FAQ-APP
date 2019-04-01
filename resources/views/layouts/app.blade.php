@@ -1,3 +1,8 @@
+<?php
+
+$app_name= Change::title();
+
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -6,8 +11,11 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>Contact Customer Service</title>
+    @if(strlen($app_name["name"]) < 1)
+        <title>Add App Name</title>
+    @else
+        <title>{{$app_name["name"]}}</title>
+    @endif
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -29,9 +37,13 @@
     <div id="app">
         <nav style="position:absolute;width:100%;" class="navbar nav-fixed-top navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/contactus') }}">
-                   Contact Customer Service
+                @if(strlen($app_name["name"]) < 1)
+              <a class="navbar-brand" href="javascript:void(0)"> <i class="fa fa-plus"></i> Add App Name</a>
+              @else
+                <a class="navbar-brand" href="/contactus">
+                   {{$app_name["name"]}}
                 </a>
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

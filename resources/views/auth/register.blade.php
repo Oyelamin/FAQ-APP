@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div style="box-shadow:4px 4px 40px black;margin-top:160px;" class="card">
+        <div class="col">
+            <div style="box-shadow:4px 4px 40px black;margin-top:160px; width:60%;" class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
@@ -63,7 +63,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button onclick="this.form.submit();this.disabled = true;" type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>

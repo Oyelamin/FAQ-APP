@@ -11,7 +11,7 @@
                
             </tr>
         </thead>
-           
+           @if(count($countries) > 0)
                 @foreach ($countries as $country)
                     <tr>
                         <td>{{$country->name}}</td>
@@ -29,6 +29,13 @@
                         </td>
                     </tr>
                 @endforeach
+            @else
+                <tr>
+                    <td>
+                        <h1 class="h3" style="padding:30px;">No Country Defined Yet!</h1>
+                    </td>
+                </tr>
+            @endif
                 <div class="" style="margin-top:-20px;">
                     {{$countries->links('pagination.index')}}
                     <br>

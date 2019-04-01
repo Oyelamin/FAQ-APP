@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Caller extends Model
+class Route extends Model
 {
-    protected $guarded=[];
+    //
 }
